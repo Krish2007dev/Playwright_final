@@ -1,0 +1,152 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "current_page": {
+      "type": "number"
+    },
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "is_location_offer": {
+            "type": "boolean"
+          },
+          "is_rental": {
+            "type": "boolean"
+          },
+          "co2_rating": {
+            "type": "string"
+          },
+          "in_stock": {
+            "type": "boolean"
+          },
+          "is_eco_friendly": {
+            "type": "boolean"
+          },
+          "product_image": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "by_name": {
+                "type": "string"
+              },
+              "by_url": {
+                "type": "string"
+              },
+              "source_name": {
+                "type": "string"
+              },
+              "source_url": {
+                "type": "string"
+              },
+              "file_name": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "by_name",
+              "by_url",
+              "source_name",
+              "source_url",
+              "file_name",
+              "title"
+            ]
+          },
+          "category": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "slug": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "slug"
+            ]
+          },
+          "brand": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "description",
+          "price",
+          "is_location_offer",
+          "is_rental",
+          "co2_rating",
+          "in_stock",
+          "is_eco_friendly",
+          "product_image",
+          "category",
+          "brand"
+        ]
+      }
+    },
+    "from": {
+      "type": "number"
+    },
+    "last_page": {
+      "type": "number"
+    },
+    "per_page": {
+      "type": "number"
+    },
+    "to": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "current_page",
+    "data",
+    "from",
+    "last_page",
+    "per_page",
+    "to",
+    "total"
+  ]
+}

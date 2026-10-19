@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "lib": ["ES2022", "DOM"],
+
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+
+    "strict": true,
+    "skipLibCheck": true,
+
+    "outDir": "dist",
+    "rootDir": ".",
+
+    "paths": {
+      "@utils/*": ["./tests/UI_Test/utils/*"],
+      "@steps/*": ["./tests/UI_Test/steps/*"],
+      "@fixtures/*": ["./tests/UI_Test/fixture/*"]
+    },
+
+    "types": ["node"],
+    "typeRoots": ["./types", "./node_modules/@types"],
+
+    "experimentalDecorators": true
+  },
+
+  "include": ["tests/**/*.ts", "playwright.config.ts", "types/**/*.d.ts"],
+
+  "exclude": ["node_modules", "dist", "reports"]
+}

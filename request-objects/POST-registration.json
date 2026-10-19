@@ -1,0 +1,16 @@
+{
+    "first_name": "John",
+    "last_name": "Doe",
+    "dob": "1992-05-15",
+    "phone": "12025550174",
+    "email": "generate_email",
+    "password": "generate_password",
+    "address": 
+    {
+        "street": "123 Automation Lane",
+        "city": "New York",
+        "state": "New York",
+        "country": "US",
+        "postal_code": "10001"
+    }
+}

@@ -1,0 +1,73 @@
+{
+  "name": "playwright_learning",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "lint:ts": "eslint \"tests/**/*.{ts,js}\"",
+    "lint:feature": "node lint-features.js",
+    "lint": "npm run lint:ts && npm run lint:feature",
+    "lint:fix": "eslint \"tests/**/*.{ts,js}\" --fix",
+    "prepare": "husky",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "clean:reports": "node clean-reports.js",
+    "test": "npm run clean:reports && npm run test:ui:run && npm run test:accessibility:run && npm run test:api:run",
+    "test:ui": "npm run clean:reports && npm run test:ui:run",
+    "test:ui:run": "npx bddgen --config playwright.ui.config.ts && npx playwright test --config=playwright.ui.config.ts",
+    "test:accessibility": "npm run clean:reports && npm run test:accessibility:run",
+    "test:accessibility:run": "npx bddgen --config playwright.accessibility.config.ts && npx playwright test --config=playwright.accessibility.config.ts",
+    "test:api": "npm run clean:reports && npm run test:api:run",
+    "test:api:run": "npx bddgen --config playwrightapi.config.ts && npx playwright test --config=playwrightapi.config.ts",
+    "allure-report": "allure generate allure-results --clean -o allure-report && allure open allure-report",
+    "allure:ui": "allure generate reports/ui/allure-results --clean -o reports/ui/allure-report && allure open reports/ui/allure-report",
+    "allure:accessibility": "allure generate reports/accessibility/allure-results --clean -o reports/accessibility/allure-report && allure open reports/accessibility/allure-report",
+    "allure:api": "allure generate reports/api/allure-results --clean -o reports/api/allure-report && allure open reports/api/allure-report",
+    "report:bdd": "npx ts-node generateReport.ts"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix tests/**/*.ts",
+      "prettier --write tests/**/*.ts"
+    ],
+    "*.feature": [
+      "node lint-features.js",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@eslint/js": "^9.36.0",
+    "@eslint/json": "^0.13.2",
+    "@faker-js/faker": "^10.6.0",
+    "@playwright/test": "^1.55.1",
+    "@types/node": "^24.19.2",
+    "@typescript-eslint/eslint-plugin": "^8.44.0",
+    "@typescript-eslint/parser": "^8.44.0",
+    "ajv": "^8.20.0",
+    "allure-playwright": "^3.4.1",
+    "dotenv": "^18.0.8",
+    "eslint": "^9.36.0",
+    "eslint-plugin-playwright": "^2.2.2",
+    "gherkin-lint": "^4.2.4",
+    "globals": "^16.4.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.6.0",
+    "lint-staged": "^15.5.2",
+    "multiple-cucumber-html-reporter": "^3.9.3",
+    "playwright-bdd": "^8.3.1",
+    "prettier": "^3.6.2",
+    "prettier-plugin-gherkin": "^3.1.2",
+    "typescript-eslint": "^8.44.0"
+  },
+  "dependencies": {
+    "@axe-core/playwright": "^4.11.1",
+    "@cucumber/cucumber-json-converter": "^0.1.0",
+    "netlify-cli": "^23.9.1"
+  }
+}

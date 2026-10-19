@@ -1,0 +1,3 @@
+email,password
+valid.user@example.com,Password123
+invalid.user@example.com,WrongPassword

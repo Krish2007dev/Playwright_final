@@ -1,0 +1,123 @@
+import { defineConfig, devices } from '@playwright/test';
+import { defineBddConfig, cucumberReporter } from 'playwright-bdd';
+
+const testDir = defineBddConfig({
+  features: 'tests/UI_Test/feature/***.feature',
+  steps: [
+    'tests/UI_Test/steps/***.steps.ts',
+    'tests/UI_Test/fixture/fixtures.ts',
+  ],
+  outputDir: '.features-gen/ui',
+});
+
+const testaccesDir = defineBddConfig({
+  features: 'tests/Accessibility_Test/feature/***.feature',
+  steps: [
+    'tests/Accessibility_Test/steps/***.steps.ts',
+    'tests/Accessibility_Test/fixture/fixtures.ts',
+  ],
+  outputDir: '.features-gen/accessibility',
+});
+
+const apiTestDir = defineBddConfig({
+  features: 'tests/API_Test/feature/***.feature',
+  steps: [
+    'tests/API_Test/steps/***.steps.ts',
+    'tests/API_Test/fixture/fixtures.ts',
+  ],
+  outputDir: '.features-gen/api',
+});
+
+export default defineConfig({
+  testDir,
+  /* Run tests in files in parallel */
+  fullyParallel: true,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  forbidOnly: !!process.env.CI,
+  /* Retry on CI only */
+  retries: process.env.CI ? 2 : 0,
+  /* Opt out of parallel tests on CI. */
+  workers: process.env.CI ? 1 : undefined,
+  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  timeout: 60 * 1000,
+  expect: {
+    timeout: 60 * 1000,
+  },
+  reporter: [
+    ['html', { outputFolder: 'reports/vscode/playwright' }],
+    ['allure-playwright', { resultsDir: 'reports/vscode/allure-results' }],
+    ['list'],
+    cucumberReporter('html', {
+      outputFile: 'reports/vscode/cucumber/index.html',
+    }),
+    cucumberReporter('json', {
+      outputFile: 'reports/vscode/cucumber/results.json',
+    }),
+  ],
+
+  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  use: {
+    /* Base URL to use in actions like `await page.goto('/')`. */
+    baseURL: 'https://ecommerce-playground.lambdatest.io/',
+
+    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'retain-on-failure',
+    timezoneId: 'UTC',
+  },
+
+  /* Configure projects for major browsers */
+  projects: [
+    {
+      name: 'login-test',
+      use: { ...devices['Desktop Chrome'] },
+    },
+
+    {
+      name: 'accessibility-test',
+      testDir: testaccesDir,
+      use: { ...devices['Desktop Firefox'] },
+    },
+
+    {
+      name: 'API_Test',
+      testDir: apiTestDir,
+      use: {
+        baseURL: 'https://api.practicesoftwaretesting.com/',
+      },
+    },
+
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
+
+    /* Test against mobile viewports. */
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
+
+    /* Test against branded browsers. */
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    // },
+    // {
+    //   name: 'Google Chrome',
+    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    // },
+  ],
+
+  /* Run your local dev server before starting the tests */
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
+});
